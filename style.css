@@ -1,0 +1,107 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --grid-rows: 6;
+    --grid-cols: 4;
+    --grid-gaps: 0;
+    --grid-size: 60px;
+    --operators-bg: orange;
+    --results-bg: rgba(0, 0, 0, 0.8);
+    --extras-bg: rgba(0, 0, 0, 0.5);
+    --numbers-bg: rgba(0, 0, 0, 0.3);
+    --border-calc: 1px solid gray;
+}
+
+html {
+    font-size: x-large;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    color: white;
+    background-color: thistle;
+}
+
+body, #container, .number, .extra, .operator, .zero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    border: var(--border-calc);
+}
+
+#container {
+    background-color: red;
+}
+
+
+/*
+░█▀▀█ ░█▀▀█ ▀█▀ ░█▀▀▄ 
+░█─▄▄ ░█▄▄▀ ░█─ ░█─░█ 
+░█▄▄█ ░█─░█ ▄█▄ ░█▄▄▀ 
+*/
+
+#calculator {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-cols), var(--grid-size));
+    grid-template-rows: repeat(var(--grid-rows), var(--grid-size));
+    grid-gap: var(--grid-gaps);
+    background-color: white;
+    grid-template-areas:
+    "r r r r"
+    "e e e o"
+    "n n n o"
+    "n n n o"
+    "n n n o"
+    "n n n o";
+}
+
+#numbers, #extras, #operators, #zeros {
+    display: grid;
+    grid-gap: var(--grid-gaps);
+}
+
+#results {
+    grid-area: r;
+    background-color: var(--results-bg);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: xx-large;
+}
+
+#extras {
+    grid-area: e;
+    background-color: var(--extras-bg);
+    grid-template-columns: repeat(3, var(--grid-size));
+}
+
+#numbers {
+    grid-area: n;
+    grid-template-columns: repeat(3, var(--grid-size));
+}
+
+.number {
+    background-color: var(--numbers-bg);
+}
+
+.number:nth-last-child(2) {
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+/* [data-value='0'] {
+    grid-column-start: 1;
+    grid-column-end: 3;
+} */
+
+#operators {
+    grid-area: o;
+    background-color: var(--operators-bg);
+}
