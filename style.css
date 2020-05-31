@@ -6,12 +6,13 @@
     --grid-rows: 6;
     --grid-cols: 4;
     --grid-gaps: 0;
-    --grid-size: 60px;
-    --operators-bg: orange;
-    --results-bg: rgba(0, 0, 0, 0.8);
-    --extras-bg: rgba(0, 0, 0, 0.5);
-    --numbers-bg: rgba(0, 0, 0, 0.3);
-    --border-calc: 1px solid gray;
+    --row-size: 50px;
+    --col-size: 58px;
+    --operators-bg: #FF9F0A;
+    --results-bg: #564E56;
+    --extras-bg: #655F65;
+    --numbers-bg: #7E7980;
+    --border-calc: 1px solid #564E56;
 }
 
 html {
@@ -28,7 +29,7 @@ body {
     background-color: thistle;
 }
 
-body, #container, .number, .extra, .operator, .zero {
+body, #container, .number, .extra, .operator {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,7 +38,8 @@ body, #container, .number, .extra, .operator, .zero {
 }
 
 #container {
-    background-color: red;
+    background-color: transparent;
+    border: none;
 }
 
 
@@ -49,17 +51,21 @@ body, #container, .number, .extra, .operator, .zero {
 
 #calculator {
     display: grid;
-    grid-template-columns: repeat(var(--grid-cols), var(--grid-size));
-    grid-template-rows: repeat(var(--grid-rows), var(--grid-size));
+    grid-template-columns: repeat(var(--grid-cols), var(--col-size));
+    grid-template-rows: repeat(var(--grid-rows), var(--row-size));
     grid-gap: var(--grid-gaps);
     background-color: white;
     grid-template-areas:
+    "r r r r"
     "r r r r"
     "e e e o"
     "n n n o"
     "n n n o"
     "n n n o"
     "n n n o";
+    border: var(--border-calc);
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 #numbers, #extras, #operators, #zeros {
@@ -79,27 +85,25 @@ body, #container, .number, .extra, .operator, .zero {
 #extras {
     grid-area: e;
     background-color: var(--extras-bg);
-    grid-template-columns: repeat(3, var(--grid-size));
+    grid-template-columns: repeat(3, var(--col-size));
 }
 
 #numbers {
     grid-area: n;
-    grid-template-columns: repeat(3, var(--grid-size));
-}
-
-.number {
+    grid-template-columns: repeat(3, var(--col-size));
     background-color: var(--numbers-bg);
+    grid-template-rows: repeat(4, var(--row-size));
+    grid-template-areas:
+    "h i j"
+    "e f g"
+    "b c d"
+    "a a z";
 }
 
 .number:nth-last-child(2) {
     grid-column-start: 1;
     grid-column-end: 3;
 }
-
-/* [data-value='0'] {
-    grid-column-start: 1;
-    grid-column-end: 3;
-} */
 
 #operators {
     grid-area: o;
